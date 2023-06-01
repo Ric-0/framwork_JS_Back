@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { User } from "./interface/user.interface";
+import { User } from "./class/user.class";
 
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Expense } from "./interface/expense.interface";
+import { Expense } from "./class/expense.class";
 
 
 @Injectable()
