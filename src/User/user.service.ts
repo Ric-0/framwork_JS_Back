@@ -1,31 +1,48 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { User } from "./class/user.class";
+import { Repository } from "typeorm";
 
 
 @Injectable()
 export class UserService {
+
+    constructor(
+        @Inject('USER_REPOSITORY')
+        private userRepository: Repository<User>
+    ) {}
+
     // Obtenir la liste des utilisateurs
     findAll(): Promise<User[]> {
-        return
+        return this.userRepository.find()
     }
 
     // Obtenir un utilisateur
     find(id: number): Promise<User> {
-        return 
+        return this.userRepository.findOne({
+            where: {id: id}
+        })
     }
 
     // Modifier un utilisateur
-    update() {
-
+    update(user: User) {
+        return this.userRepository.update({
+            id: user.id
+        }, {
+            nom: user.nom,
+            prenom: user.prenom,
+            pseudo: user.pseudo
+        })
     }
 
     // Créer un utilisateur
-    create() {
-
+    create(user: User) {
+        return this.userRepository.create(user)
     }
 
     // Supprimer un utilisateur
-    delete() {
-        
+    delete(id: number) {
+        return this.userRepository.delete({
+            id: id
+        })
     }
 }

@@ -17,4 +17,11 @@ export class Expense {
 
     @Column()
     id_categorie: number
+
+    constructor(libelle: string, montant: number, id_payeur: number, id_categorie: number) {
+        this.libelle = libelle
+        this.montant = montant
+        this.id_payeur = id_payeur
+        this.id_categorie = id_categorie
+    }
 }

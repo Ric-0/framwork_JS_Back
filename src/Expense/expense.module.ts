@@ -1,12 +1,15 @@
 import { Module } from "@nestjs/common";
 import { ExpenseController } from "./expense.controller";
 import { ExpenseService } from "./expense.service";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { Expense } from "./class/expense.class";
+import { DatabaseModule } from "src/Database/database.module";
+import { expenseProviders } from "./expense.providers";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Expense])],
+    imports: [DatabaseModule],
     controllers: [ExpenseController],
-    providers: [ExpenseService]
+    providers: [
+        ...expenseProviders,
+        ExpenseService
+    ]
 })
 export class ExpenseModule {}
