@@ -8,4 +8,8 @@ export class Category {
     
     @Column()
     libelle: string;
+
+    constructor(libelle: string) {
+        this.libelle = libelle
+    }
 }

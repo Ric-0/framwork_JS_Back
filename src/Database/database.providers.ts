@@ -13,8 +13,8 @@ export const databaseProviders = [
         port: 3306,
         username: 'framwork_back',
         password: 'D2sD/6}gYzv=54',
-        database: 'test',
-        entities: [User, Category, Expense],
+        database: 'framwork_js',
+        entities: [],
         synchronize: true,
       });
 
