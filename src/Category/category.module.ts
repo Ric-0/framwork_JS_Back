@@ -5,11 +5,11 @@ import { DatabaseModule } from "src/Database/database.module";
 import { categoryProviders } from "./category.providers";
 
 @Module({
-    imports: [DatabaseModule],
-    controllers: [CategoryController],
+    imports: [DatabaseModule], // Importe le module DatabaseModule
+    controllers: [CategoryController], // Déclare le contrôleur CategoryController
     providers: [
-        ...categoryProviders,
-        CategoryService
+        ...categoryProviders, // Inclut tous les fournisseurs de catégorie définis dans category.providers.ts
+        CategoryService // Déclare le fournisseur de service CategoryService
     ]
 })
 export class CategoryModule {}

@@ -8,19 +8,19 @@ export class CategoryController {
 
     constructor(private categoryService: CategoryService) {}
 
-    // Obtenir la liste des categories
+    // Création de la route pour obtenir la liste des catégories
     @Get('getAll')
     findAll() {
         return this.categoryService.findAll()
     }
 
-    // Obtenir un categorie
+    // Création de la route pour obtenir une catégorie
     @Get('getOne')
     find(@Query('id') id: number) {
         return this.categoryService.find(id)
     }
 
-    // Modifier un categorie
+    // Création de la route pour modifier une catégorie
     @Put('update')
     update(@Query('id') id: number, @Query('libelle') libelle: string) {
         let categorie = new Category(libelle)
@@ -30,14 +30,14 @@ export class CategoryController {
         return this.categoryService.update(categorie)
     }
 
-    // Créer un categorie
+    // Création de la route pour créer une catégorie
     @Post('create')
     create(@Body() userData: any) {
         let categorie = new Category(userData.libelle)
         return this.categoryService.create(categorie)
     }
 
-    // Supprimer un categorie
+    // Création de la route pour supprimer une catégorie
     @Delete('delete')
     delete(@Query('id') id: number) {
         return this.categoryService.delete(id)

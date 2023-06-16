@@ -7,38 +7,41 @@ export class UserService {
 
     constructor(@Inject('USER_REPOSITORY') private readonly dataSource: any) {}
 
-    // Obtenir la liste des utilisateurs
+    // Requete pour obtenir la liste des utilisateurs
     findAll(): Promise<User[]> {
         return this.dataSource.query('select id, pseudo from utilisateur')
     }
 
-    // Obtenir un utilisateur
+    // Requete pour obtenir un utilisateur 
     find(id: number): Promise<User> {
         return this.dataSource.query('select * from utilisateur where id = ?', [id])
     }
 
-    // Modifier un utilisateur
+    // Requete pour modifier un utilisateur 
     update(user: User) {
-        return this.dataSource.query('update utilisateur set nom = ?, prenom = ?, pseudo = ? where id = ?', [user.pseudo, user.id])
+        return this.dataSource.query('update utilisateur set pseudo = ? where id = ?', [user.pseudo, user.id])
     }
 
-    // Créer un utilisateur
+    // Requete pour créer un utilisateur 
     async create(user: User) {
         user.password = await bcrypt.hash(user.password, 10);
         return this.dataSource.query('insert into utilisateur (pseudo, password) values (?, ?)', [user.pseudo, user.password])
     }
 
-    // Supprimer un utilisateur
+    // Requete pour supprimer un utilisateur 
     delete(id: number) {
         return this.dataSource.query('delete from utilisateur where id = ?', [id])
     }
 
-    // Connexion
+    // Requete pour connecter un utilisateur 
     async connect(user: User) {
         let infoUser = await this.dataSource.query('select * from utilisateur where pseudo = ?', [user.pseudo])
+        // Verification de la présence d'un utilisateur
         if(infoUser) {
             const isMatch = await bcrypt.compare(user.password, infoUser[0].password);
+            // Vérification de si le mot de passe entré par l'utilisateur correspond 
             if(isMatch) {
+                // Retourne l'id de l'utilisateur pour les insertions futures
                 return infoUser[0].id
             } else {
                 return false
